@@ -1,0 +1,24 @@
+{
+  "overview": "An AI-powered real-time railway passenger monitoring system for administrators to track coach occupancy, manage overcrowding alerts, and generate AI safety reports via Google Gemini.",
+  "features": [
+    "Internet Identity login with secure session management",
+    "Live train & coach dashboard with 6-coach occupancy tracking",
+    "Color-coded occupancy visualization (green/yellow/red)",
+    "Overcrowding alerts with severity levels and one-click resolution",
+    "Simulated CCTV feed with YOLO detection overlay",
+    "AI report generation via Google Gemini API",
+    "Reports management page with history and download",
+    "Mobile-responsive professional UI"
+  ],
+  "category": "productivity",
+  "tags": [
+    "railway",
+    "monitoring",
+    "ai",
+    "occupancy",
+    "alerts",
+    "reports",
+    "real-time"
+  ],
+  "last_updated": "2026-04-28T16:41:49.949Z"
+}

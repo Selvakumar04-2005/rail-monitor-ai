@@ -1,0 +1,60 @@
+// Version: 1.0.0
+type AlertSeverity__233193761 = {#critical; #warning};
+type Alert__148163024 =
+  {
+    coachId : CoachId__324546979;
+    description : Text;
+    id : Nat;
+    resolved : Bool;
+    resolvedAt : ?Timestamp__803012467;
+    severity : AlertSeverity__233193761;
+    timestamp : Timestamp__803012467;
+    trainId : TrainId__867009353
+  };
+type CoachId__324546979 = Text;
+type CoachOccupancy__582113032 =
+  {
+    coachId : CoachId__324546979;
+    lastUpdated : Timestamp__803012467;
+    occupiedSeats : Nat;
+    status : OccupancyStatus__328782393;
+    totalSeats : Nat
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type OccupancyStatus__328782393 = {#green; #red; #yellow};
+type Report__669841257 =
+  {
+    activeAlerts : Nat;
+    adminId : Text;
+    geminiResponse : Text;
+    id : Nat;
+    timestamp : Timestamp__803012467;
+    totalPassengers : Nat;
+    trainId : TrainId__867009353
+  };
+type Timestamp__803012467 = Int;
+type TrainId__867009353 = Text;
+actor {
+  stable alerts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Alert__148163024]];
+      var elementIndex : Nat__490723111
+    };
+  stable coaches :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?CoachOccupancy__582113032]];
+      var elementIndex : Nat__490723111
+    };
+  stable counters :
+    {var nextAlertId : Nat; var nextReportId : Nat; var refreshCounter : Nat};
+  stable reports :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Report__669841257]];
+      var elementIndex : Nat__490723111
+    };
+  stable trainId : Text
+};

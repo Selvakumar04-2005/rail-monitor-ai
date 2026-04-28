@@ -1,0 +1,87 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type TrainId = text;
+type Timestamp = int;
+type Report = 
+ record {
+   activeAlerts: nat;
+   adminId: text;
+   geminiResponse: text;
+   id: nat;
+   timestamp: Timestamp;
+   totalPassengers: nat;
+   trainId: TrainId;
+ };
+type OccupancyStatus = 
+ variant {
+   green;
+   red;
+   yellow;
+ };
+type OccupancySnapshot = 
+ record {
+   coaches: vec CoachOccupancy;
+   timestamp: Timestamp;
+   trainId: TrainId;
+ };
+type GenerateReportRequest = 
+ record {
+   adminId: text;
+   trainId: TrainId;
+ };
+type CoachOccupancy = 
+ record {
+   coachId: CoachId;
+   lastUpdated: Timestamp;
+   occupiedSeats: nat;
+   status: OccupancyStatus;
+   totalSeats: nat;
+ };
+type CoachId = text;
+type AlertSeverity = 
+ variant {
+   critical;
+   warning;
+ };
+type Alert = 
+ record {
+   coachId: CoachId;
+   description: text;
+   id: nat;
+   resolved: bool;
+   resolvedAt: opt Timestamp;
+   severity: AlertSeverity;
+   timestamp: Timestamp;
+   trainId: TrainId;
+ };
+service : {
+  generateReport: (req: GenerateReportRequest) -> (Report);
+  getActiveAlerts: () -> (vec Alert) query;
+  getAlerts: () -> (vec Alert) query;
+  getCoachOccupancies: () -> (vec CoachOccupancy) query;
+  getOccupancySnapshot: () -> (OccupancySnapshot) query;
+  getReports: () -> (vec Report) query;
+  refreshOccupancy: () -> ();
+  resolveAlert: (alertId: nat) -> (bool);
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+}
